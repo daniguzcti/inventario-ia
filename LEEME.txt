@@ -1,0 +1,11 @@
+INVENTARIO IA V3 — IDENTIFICACIÓN ASISTIDA
+
+1. Abrir index.html con Chrome o Edge. Para usar cámara en un teléfono, publicar el archivo en un alojamiento HTTPS.
+2. Buscar y seleccionar materiales, registrar movimientos y exportar respaldos como en V2.
+3. Para leer QR/barras: tomar foto y pulsar «Leer código QR / barras». Depende de BarcodeDetector, no disponible en todos los navegadores.
+4. Para IA visual: desplegar servidor-ejemplo.js como Cloudflare Worker, definir secreto GEMINI_API_KEY y ALLOWED_ORIGIN, copiar la URL HTTPS del Worker al campo URL del servicio. Requiere cuenta, red y servicio externo; pueden existir costos y cuotas.
+5. Confirmar siempre SAP/Part Number: no confiar en coincidencias visuales para repuestos críticos.
+
+DATOS: La clave localStorage coincide con V2, de modo que si ambas versiones están en el MISMO ORIGEN del navegador, los movimientos se conservan. Si se cambia de dispositivo, origen o carpeta con file://, exportar respaldo JSON en V2 y restaurarlo en V3.
+
+SEGURIDAD: No poner la API key en el HTML. El Worker de ejemplo es un punto de partida, NO está endurecido para producción: agregar autenticación, control de acceso, límites de solicitudes y CORS restringido antes de utilizar datos reales. Las fotos se envían al servicio solo tras consentimiento. No se almacenan en el inventario.
