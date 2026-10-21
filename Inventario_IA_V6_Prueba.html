@@ -69,7 +69,36 @@ $('scanAI').onclick=async()=>{
     $('recognized').value=rec.part_number||'';
     const n=suggest(terms);
     const summary=[rec.fabricante,rec.descripcion,rec.part_number].filter(Boolean).join(' · ');
-    $('scanStatus').textContent='Gemini: '+summary+'. '+n+' coincidencia(s) en el inventario. Confirmá el código SAP antes de registrar.';
+   const scanStatus = $('scanStatus');
+
+scanStatus.textContent = '';
+
+const recuadro = document.createElement('div');
+recuadro.style.cssText =
+  'border:2px solid #2563eb;' +
+  'border-radius:10px;' +
+  'padding:14px;' +
+  'margin:10px 0;' +
+  'background:#eff6ff;' +
+  'color:#1e3a8a;';
+
+const titulo = document.createElement('div');
+titulo.textContent = 'DESCRIPCIÓN IDENTIFICADA POR GEMINI';
+titulo.style.cssText = 'font-size:12px;margin-bottom:8px;';
+
+const descripcion = document.createElement('div');
+descripcion.textContent = summary;
+descripcion.style.cssText = 'font-weight:700;font-size:17px;';
+
+recuadro.appendChild(titulo);
+recuadro.appendChild(descripcion);
+scanStatus.appendChild(recuadro);
+
+const aviso = document.createElement('div');
+aviso.textContent =
+  n + ' coincidencia(s) en el inventario. Confirmá el código SAP antes de registrar.';
+
+scanStatus.appendChild(aviso);
   }catch(e){$('scanStatus').textContent='No se pudo reconocer: '+e.message+'. Revisá la conexión y la configuración de Cloudflare.'}
   finally{b.disabled=false}
 };
